@@ -1,5 +1,5 @@
 import pygame
-#import os #To find the image path
+
 
 class Ship:
     """A class to manage the ship"""
@@ -10,9 +10,9 @@ class Ship:
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
 
-        # Load the ship image and get its rect
-        self.image = pygame.image.load("AlienInvasion/images/ship.bmp")
-            #print(os.getcwd())
+        # Load the ship image and get its rectz
+        self.image = pygame.image.load(
+            '/home/meda/PycharmProjects/PythonCrashCourse/CrashCourseProjects/AlienInvasion/images/ship.bmp')
         self.rect = self.image.get_rect()
 
         #Start each new ship at the bottom center of the screen
@@ -20,21 +20,24 @@ class Ship:
 
         # Store a decimal value for the ships horizontal position
         self.x = float(self.rect.x)
-                
-        # Movement flag
+
+        # Movement flags
         self.moving_right = False
         self.moving_left = False
-    
+
+
     def update(self):
-        """ Update the ships position based on the movement flag"""
-        # Update the ships x value, not the rect 
-        if self.moving_right:
+        """ Update the ships position based on movement flag"""
+        # Update the ships x value not the rect()
+
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
         
         # Update rect object from self.x
         self.rect.x = self.x
+
 
     def blitme(self):
         """Draw the ship at its current location"""
