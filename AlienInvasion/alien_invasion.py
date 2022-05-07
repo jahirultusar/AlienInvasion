@@ -23,16 +23,25 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
 
-
-
     def run_game(self):
         '''Start the main loop for the game'''
         while True:            
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
 
+            
+    def _update_bullets(self):
+        """ Update position of bullets and get rid of old bullets"""
+        # Update bullet positions
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        #print(len(self.bullets)) #This print method should be removed. it counts deleted bullets
     
     def _check_events(self):
         """ Watch for keyboard and mouse event"""
@@ -64,9 +73,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """ Create a new bullet and add it the bullets group"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
-
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
     
     def _update_screen(self):
             # Redraw the screen during each pass through the loop
@@ -81,4 +90,4 @@ class AlienInvasion:
 if __name__ == '__main__':
     # Make a game instance, and run the game
     ai = AlienInvasion()
-    ai.run_game()
+    ai.run_game() 
