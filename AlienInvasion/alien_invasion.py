@@ -28,26 +28,54 @@ class AlienInvasion:
         while True:            
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
 
+            
+    def _update_bullets(self):
+        """ Update position of bullets and get rid of old bullets"""
+        # Update bullet positions
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        #print(len(self.bullets)) #This print method should be removed. it counts deleted bullets
     
     def _check_events(self):
-        # watch for keyboard and mouse event
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RIGHT:
-                        self.ship.moving_right = True
-                    elif event.key == pygame.K_LEFT:
-                        self.ship.moving_left = True
-                        
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_RIGHT:
-                        self.ship.moving_right = False
-                    elif event.key == pygame.K_LEFT:
-                        self.ship.moving_left = False
+        """ Watch for keyboard and mouse event"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+                
+    def _check_keydown_events(self, event):
+        """ Respond to key presses"""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
+    def _check_keyup_events(self, event):        
+        """ Respond to key relases"""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        """ Create a new bullet and add it the bullets group"""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
     
     def _update_screen(self):
             # Redraw the screen during each pass through the loop
@@ -62,4 +90,4 @@ class AlienInvasion:
 if __name__ == '__main__':
     # Make a game instance, and run the game
     ai = AlienInvasion()
-    ai.run_game()
+    ai.run_game() 
