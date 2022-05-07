@@ -20,3 +20,4 @@ class Settings:
         self.bullet_height = 15
         #self.bullet_color = (60, 60, 60) # Dark grey
         self.bullet_color = (250, 249, 246) # Temporary bullet color # off white
+        self.bullets_allowed = 3
