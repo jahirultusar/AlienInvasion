@@ -16,7 +16,7 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
         
-        # Store the bullet position as decimal value
+        # Store the bullet position as decimal value 
         self.y = float(self.rect.y)
     
     def update(self):
