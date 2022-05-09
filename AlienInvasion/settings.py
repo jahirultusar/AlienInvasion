@@ -21,6 +21,7 @@ class Settings:
         self.bullet_height = 15
         #self.bullet_color = (60, 60, 60) # Dark grey
         self.bullet_color = (250, 249, 246) # Temporary bullet color # off white
+<<<<<<< HEAD
         self.bullets_allowed = 3
 
         # Alien settings
@@ -28,3 +29,6 @@ class Settings:
         self.fleet_drop_speed = 30 #was 3
         # fleet_direction of 1 represents right; -1 represents left
         self.fleet_direction = 1
+=======
+        self.bullets_allowed = 3
+>>>>>>> 5397ecb7d15596a997bcf3ba6517cd1f7c5a21f7
