@@ -142,6 +142,8 @@ class AlienInvasion:
             # Create a new fleet and center the ship
             self._create_fleet()
             self.ship.center_ship()
+
+            # git test
                 
     def _check_keydown_events(self, event):
         """ Respond to key presses"""
